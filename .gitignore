@@ -197,8 +197,6 @@ logs
 *.lot
 ltmain.sh
 *.maf
-Makefile
-/Makefile
 .#Makefile
 Makefile~
 Makefile.in
