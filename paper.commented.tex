@@ -1,0 +1,207 @@
+\newif\ifpreprint
+\preprinttrue
+% \documentclass[canadian,english,conference]{IEEEtran}
+
+% \documentclass[canadian,english]{sig-alternate}
+\ifpreprint
+\documentclass[canadian,12pt]{wlpeerj}
+\else
+\documentclass[canadian,english,10pt,conference,compsocconf]{IEEEtran}
+\fi
+
+\setlength{\parskip}{0.15em}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{calc}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,allcolors=black,breaklinks=true,pdfa]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{microtype}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{color}
+% \usepackage{flushend}
+\usepackage{balance}
+\usepackage{babel}
+\usepackage{multirow}
+\usepackage{fancybox}
+\usepackage{fancyvrb}
+\usepackage{algpseudocode}
+\usepackage{tabularx}
+
+\usepackage{chngcntr}
+\counterwithin{paragraph}{subsubsection}
+\counterwithin{paragraph}{subsection}
+\counterwithin{paragraph}{section}
+
+
+
+% For Preprint vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+\ifpreprint
+\usepackage{lineno}
+\linenumbers
+\fi
+% For Preprint ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+% stolen from http://tex.stackexchange.com/questions/140593/shrinking-verbatim-text
+% \newenvironment{restrictlinewidthverb}
+%  {\SaveVerbatim{rlwv}}
+%  {\endSaveVerbatim
+%   \sbox0{\BUseVerbatim{rlwv}}
+%   \begingroup\center % don't add indentation
+%   \ifdim\wd0>\linewidth
+%     \resizebox{\linewidth}{!}{\copy0}%
+%   \else
+%     \copy0
+%   \fi
+%   \endcenter\endgroup}
+
+
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+
+\newif\ifComments
+\Commentstrue
+
+\ifComments
+\newcommand{\jna}[1]{\noindent\textcolor{red}{Nelson: {#1}}}
+\newcommand{\ajh}[1]{\noindent\textcolor{blue}{Abram: {#1}}}
+\newcommand{\jcc}[1]{\noindent\textcolor{darkgreen}{Joshua: {#1}}}
+\else
+\newcommand{\jna}[1]{}
+\newcommand{\ajh}[1]{}
+\newcommand{\jcc}[1]{}
+\fi
+
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewlineF
+\providecommand{\tabularnewline}{\\}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newenvironment{lyxcode}
+{\par\begin{list}{}{
+\setlength{\rightmargin}{\leftmargin}
+\setlength{\listparindent}{0pt}% needed for AMS classes
+\raggedright
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\normalfont\ttfamily}%
+ \item[]}
+{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+
+\makeatother
+
+% Required by ACM/MSR/ICSE
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+% User defined macros/commands
+
+\newcommand{\etal}[1]{\emph{ et al.~}\cite{#1}}
+
+\newenvironment{hassanbox}%
+{\begin{center}\vspace{0mm}\noindent\begin{Sbox}\begin{minipage}{0.95\columnwidth}}%
+{\end{minipage}\end{Sbox}\fbox{\TheSbox}\end{center}\vspace{0mm}}
+
+\newcommand{\boxedtextthing}[1]{\begin{hassanbox}#1\end{hassanbox}}
+
+
+\begin{document}
+% \conferenceinfo{FSE}{'15}
+% \CopyrightYear{2015}
+% \copyrightetc{Copyright is held by the owner/author(s). Publication rights licensed to ACM.\\\the\acmcopyr}
+% \crdata{ACM XXX-X-XXXX-XXXX-X/1XX/XX…\$15.00.\\
+% http://dx.doi.org/XX.XXXX/XXXXXXX.XXXXXXX}
+
+\title{The Charming Code that Error Messages are Talking About}
+
+
+\ifpreprint
+  \author[1]{Joshua Charles Campbell}
+  \author[1]{Abram Hindle}
+  \affil[1]{
+  Department of Computing Science\\
+  University of Alberta\\
+  Edmonton, Canada
+  }
+\else
+  \author{Joshua Charles Campbell, Abram Hindle\\
+  Department of Computing Science\\
+  University of Alberta\\
+  Edmonton, Canada\\
+  $\left\{ \mbox{joshua2, hindle1}\right\}
+  \mbox{@cs.ualberta.ca}$}
+%   \numberofauthors{2}
+%   \author{
+%   \alignauthor
+%   Joshua Charles Campbell\\
+%   \affaddr{Department of Computing Science}\\
+%   \affaddr{University of Alberta}\\
+%   \affaddr{Edmonton, Canada}\\
+%   \email{joshua2@ualberta.ca}
+%   % Author 2
+%   \alignauthor
+%   Abram Hindle\\
+%   \affaddr{Department of Computing Science}\\
+%   \affaddr{University of Alberta}\\
+%   \affaddr{Edmonton, Canada}\\
+%   \email{hindle1@ualberta.ca}
+%   }
+%   
+%   \toappear{For peer review.}
+\fi
+
+
+\ifpreprint
+  \begin{abstract}
+  \input{abstract}
+  \end{abstract}
+\fi
+
+
+% \category{D.2.8}{Software Engineering}{Metrics}[Complexity measures]
+% \category{D.2.5}{Software Engineering}{Testing and Debugging}[Testing tools]
+
+% \terms{Languages, Measurement}
+
+\ifpreprint
+\keywords{Mutation Testing, Software metrics, Complexity} % NOT required for Proceedings, but MSR says it is...
+% \newpage
+\fi
+
+\maketitle
+
+\ifpreprint
+\else
+  \begin{abstract}
+  \input{abstract}
+  \end{abstract}
+\fi
+
+\section{Introduction}
+
+
+\balance
+
+\ifpreprint
+\bibliographystyle{abbrv}
+\else
+\bibliographystyle{IEEEtran}
+% \nocite{*}
+\fi
+\bibliography{breaking,whitespace}
+
+\end{document}
